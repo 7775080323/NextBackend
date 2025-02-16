@@ -1,0 +1,7 @@
+{
+    "version": 2,
+    "routes": [
+      { "src": "index.ts", "dest": "index.js" }
+    ]
+  }
+  
