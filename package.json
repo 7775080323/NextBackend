@@ -4,10 +4,11 @@
   "main": "index.js",
   
   "scripts": {
-    "compile": "tsc -w",
-    "build": "nodemon src/index.ts",
-    "dev": "concurrently \"npm run compile\" \"npm run build\""
-  },
+  "compile": "tsc",
+  "build": "tsc && node dist/index.js",
+  "dev": "concurrently \"npm run compile\" \"nodemon dist/index.js\"",
+  "start": "node dist/index.js"
+},
   "author": "",
   "license": "ISC",
   "description": "",
