@@ -69,7 +69,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Frontend URL
+    origin: "https://next-front-lv8xqqbx1-manali-songires-projects.vercel.app",
     methods: ["GET", "POST"],
   },
 });
