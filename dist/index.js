@@ -74,11 +74,7 @@ const io = new socket_io_1.Server(server, {
     },
 });
 // Middleware
-app.use((0, cors_1.default)({
-    origin: ["http://localhost:3000", "https://next-front-lv8xqqbx1-manali-songires-projects.vercel.app"],
-    methods: ["GET", "POST"],
-    credentials: true,
-}));
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 // Connect MongoDB
 mongoose_1.default
