@@ -5,7 +5,7 @@
   
   "scripts": {
     "compile": "tsc -w",
-    "build": "nodemon src/index.ts",
+    "build": "npm i -g nodemon && nodemon src/index.ts",
     "dev": "concurrently \"npm run compile\" \"npm run build\""
   },
   "author": "",
