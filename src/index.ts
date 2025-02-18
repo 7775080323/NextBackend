@@ -54,7 +54,6 @@
 // });
 
 
-
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
@@ -70,7 +69,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "http://localhost:3000", // Frontend URL
     methods: ["GET", "POST"],
   },
 });
@@ -124,6 +123,25 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Handle delete message event
+  socket.on("deleteMessage", async (messageId) => {
+    try {
+      console.log("Deleting message with ID:", messageId); // Debugging log
+  
+      const deletedMessage = await Message.findByIdAndDelete(messageId);
+  
+      if (!deletedMessage) {
+        console.error("Message not found!");
+        return;
+      }
+  
+      io.emit("deleteMessage", messageId);
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
+  });
+  
+
   socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
   });
@@ -133,4 +151,3 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
