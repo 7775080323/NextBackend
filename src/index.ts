@@ -77,11 +77,12 @@ const io = new Server(server, {
 // Middleware
 app.use(
   cors({
-    origin: "https://next-front-lv8xqqbx1-manali-songires-projects.vercel.app",
+    origin: ["https://next-front-lv8xqqbx1-manali-songires-projects.vercel.app", "http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true,
   })
-)
+);
+
 app.use(express.json());
 
 // Connect MongoDB
