@@ -19,7 +19,11 @@ const io = new Server(server, {
 });
 
 // Middleware
-app.use(cors({ origin: "*" }));
+app.use(cors({
+  origin: "https://next-front-esr3elw4d-manali-songires-projects.vercel.app",
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Connect MongoDB
