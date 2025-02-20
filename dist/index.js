@@ -23,6 +23,13 @@ const Message_1 = __importDefault(require("./model/Message"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
+// Middleware
+app.use((0, cors_1.default)({
+    origin: "https://next-front-esr3elw4d-manali-songires-projects.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
 const io = new socket_io_1.Server(server, {
     cors: {
         origin: "process.env.CLIENT_ORIGIN",
@@ -32,6 +39,8 @@ const io = new socket_io_1.Server(server, {
 // Middleware
 app.use((0, cors_1.default)({
     origin: "https://next-front-esr3elw4d-manali-songires-projects.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
 app.use(express_1.default.json());

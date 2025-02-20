@@ -11,6 +11,15 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
+
+
+// Middleware
+app.use(cors({
+  origin: "https://next-front-esr3elw4d-manali-songires-projects.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 const io = new Server(server, {
   cors: {
     origin: "process.env.CLIENT_ORIGIN",
@@ -21,6 +30,8 @@ const io = new Server(server, {
 // Middleware
 app.use(cors({
   origin: "https://next-front-esr3elw4d-manali-songires-projects.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
