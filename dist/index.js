@@ -1,11 +1,4 @@
 "use strict";
-// import express from "express";
-// import http from "http";
-// import { Server } from "socket.io";
-// import cors from "cors";
-// import mongoose from "mongoose";
-// import userRoutes from "./routes/user.routes";
-// import dotenv from "dotenv";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,43 +12,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// dotenv.config();
-// const app = express();
-// const server = http.createServer(app);
-// const io = new Server(server, {
-//   cors: {
-//     origin: "http://localhost:3000", // Allow frontend to connect
-//     methods: ["GET", "POST"],
-//   },
-// });
-// // Middleware
-// app.use(cors());
-// app.use(express.json());
-// // Connect MongoDB
-// mongoose.connect(process.env.MONGODB_URL as string)
-//   .then(() => console.log("MongoDB Connected"))
-//   .catch((err) => console.error("MongoDB Connection Error:", err));
-// // API Routes
-// app.use("/api/user", userRoutes);
-// // Test Route
-// app.get("/", (req, res) => {
-//   res.send("Socket.io Server is running");
-// });
-// // WebSocket Connection
-// io.on("connection", (socket) => {
-//   console.log("A user connected:", socket.id);
-//   socket.on("sendMessage", (messageData) => {
-//     console.log("Received message:", messageData);
-//     io.emit("receiveMessage", messageData); // Broadcast to all users
-//   });
-//   socket.on("disconnect", () => {
-//     console.log("User disconnected:", socket.id);
-//   });
-// });
-// const PORT = process.env.PORT || 5000;
-// server.listen(PORT, () => {
-//   console.log(`Server running on port ${PORT}`);
-// });
 const express_1 = __importDefault(require("express"));
 const http_1 = __importDefault(require("http"));
 const socket_io_1 = require("socket.io");
@@ -69,12 +25,12 @@ const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
 const io = new socket_io_1.Server(server, {
     cors: {
-        origin: "https://next-front-lv8xqqbx1-manali-songires-projects.vercel.app",
+        origin: "*",
         methods: ["GET", "POST"],
     },
 });
 // Middleware
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ origin: "*" }));
 app.use(express_1.default.json());
 // Connect MongoDB
 mongoose_1.default
