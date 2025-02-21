@@ -25,7 +25,7 @@ const app = (0, express_1.default)();
 const server = http_1.default.createServer(app);
 // Middleware
 app.use((0, cors_1.default)({
-    origin: "*",
+    origin: "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
@@ -74,21 +74,6 @@ io.on("connection", (socket) => {
         }
         catch (error) {
             console.error("Error saving message:", error);
-        }
-    }));
-    // Handle delete message event
-    socket.on("deleteMessage", (messageId) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            console.log("Deleting message with ID:", messageId); // Debugging log
-            const deletedMessage = yield Message_1.default.findByIdAndDelete(messageId);
-            if (!deletedMessage) {
-                console.error("Message not found!");
-                return;
-            }
-            io.emit("deleteMessage", messageId);
-        }
-        catch (error) {
-            console.error("Error deleting message:", error);
         }
     }));
     socket.on("disconnect", () => {

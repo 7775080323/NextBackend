@@ -15,7 +15,7 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: "*",
+  origin: "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
@@ -26,7 +26,13 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.use(express.json());
 
@@ -75,27 +81,7 @@ io.on("connection", (socket) => {
       console.error("Error saving message:", error);
     }
   });
-
-  // Handle delete message event
-  socket.on("deleteMessage", async (messageId) => {
-    try {
-      console.log("Deleting message with ID:", messageId); // Debugging log
-  
-      const deletedMessage = await Message.findByIdAndDelete(messageId);
-  
-      if (!deletedMessage) {
-        console.error("Message not found!");
-        return;
-      }
-  
-      io.emit("deleteMessage", messageId);
-    } catch (error) {
-      console.error("Error deleting message:", error);
-    }
-  });
-  
-
-  socket.on("disconnect", () => {
+    socket.on("disconnect", () => {
     console.log("User disconnected:", socket.id);
   });
 });
