@@ -43,7 +43,7 @@ mongoose_1.default
     .then(() => console.log("MongoDB Connected"))
     .catch((err) => console.error("MongoDB Connection Error:", err));
 // API Routes
-app.use("/api/user", user_routes_1.default);
+app.use("/api/user/auth", user_routes_1.default);
 // Fetch previous messages from MongoDB
 app.get("/api/messages", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -95,7 +95,7 @@ io.on("connection", (socket) => {
         console.log("User disconnected:", socket.id);
     });
 });
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
