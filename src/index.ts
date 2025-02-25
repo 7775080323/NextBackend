@@ -15,23 +15,17 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app",
+  origin: ["http://localhost:3000", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
+
 const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
   },
-});
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
 });
 
 app.use(express.json());
@@ -44,7 +38,7 @@ mongoose
 
 // API Routes
 
-app.use("/api/user/auth", userRoutes);
+app.use("/api/user", userRoutes);
 
 // Fetch previous messages from MongoDB
 app.get("/api/messages", async (req, res) => {
@@ -86,7 +80,7 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
