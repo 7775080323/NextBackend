@@ -15,7 +15,7 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:3000", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app"],
+  origin: ["http://localhost:3000", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app", "https://next-front-kg9op26n0-manali-songires-projects.vercel.app"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
