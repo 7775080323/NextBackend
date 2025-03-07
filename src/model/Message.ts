@@ -1,18 +1,19 @@
-import mongoose from "mongoose";
 
-const messageSchema = new mongoose.Schema(
-  {
-    sender: { type: String, required: true },
-    text: { type: String }, // Optional text (if sending file)
-    file: { type: String }, // Optional file URL or base64 string
-    status: { 
-      type: String, 
-      enum: ["sent", "delivered", "read"], 
-      default: "sent" 
-    }, // Message status
-  },
-  { timestamps: true } // Automatically adds createdAt & updatedAt
-);
+import mongoose, { Document, Model, Schema } from "mongoose";
 
-const Message = mongoose.model("Message", messageSchema);
+interface IMessage extends Document {
+  content: string;
+  sender: string;
+  createdAt: Date;
+}
+
+const messageSchema: Schema = new Schema({
+  content: { type: String, required: true },
+  sender: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Message: Model<IMessage> = mongoose.model<IMessage>("Message", messageSchema);
+
 export default Message;
+

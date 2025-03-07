@@ -15,13 +15,14 @@ const server = http.createServer(app);
 
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:3000", "https://next-front-d2njyl2f3-manali-songires-projects.vercel.app", "https://next-front-kg9op26n0-manali-songires-projects.vercel.app"],
+  origin: ["http://localhost:3000", "https://frontendchatapp-3x0x14zj9-manali-songires-projects.vercel.app", "https://frontendchatapp-3x0x14zj9-manali-songires-projects.vercel.app"],
+  // origin:"*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
 }));
 
-const io = new Server(server, {
+export const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -66,13 +67,16 @@ io.on("connection", (socket) => {
     console.log("Received message:", messageData);
 
     try {
-      const message = new Message(messageData);
+      const message = new Message({
+        ...messageData,
+        sentTime: Number(messageData.sentTime) || Date.now(), // ✅ Ensure sentTime is a number
+      });
+
       await message.save();
 
-      // Send message to all connected clients
       io.emit("receiveMessage", message);
     } catch (error) {
-      console.error("Error saving message:", error);
+      console.error("❌ Error saving message:", error);
     }
   });
     socket.on("disconnect", () => {
